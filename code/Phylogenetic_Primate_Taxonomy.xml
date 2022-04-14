@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<order taxa="Primates">
+    <groomingClaw>false</groomingClaw>
+    <toothComb>false</toothComb>
+    <fusedMandible>false</fusedMandible>
+    <fusedFrontal>false</fusedFrontal>
+    <postOrbitalClosure>false</postOrbitalClosure>
+    <rhinarium>true</rhinarium>
+    
+    <semiOrder taxa="Strepsirrhini">
+        <groomingClaw>true</groomingClaw>
+        <toothComb>true</toothComb>
+        <rhinarium>true</rhinarium>
+        <dentalFormula>2,1,3,3</dentalFormula>
+        
+        <location>Africa</location>
+        <location>SouthEast Asia</location>
+        
+        <subOrder taxa="Strepsirrhini">
+            <infraOrder taxa="Lemuriformes">
+                <location>Madagascar</location>
+            </infraOrder>
+            
+            <infraOrder taxa="Lorisiformes">
+                <location>Africa</location>
+                <location>Asia</location>
+            </infraOrder>
+        </subOrder>
+    </semiOrder>
+    
+    <semiOrder taxa="Haplorhini">
+        <fusedMandible>true</fusedMandible>
+        <fusedFrontal>true</fusedFrontal>
+        <postOrbitalClosure>true</postOrbitalClosure>
+        <rhinarium>false</rhinarium>
+        <dentalFormula>2,1,3,2</dentalFormula>
+        
+        <location>Africa</location>
+        <location>Asia</location>
+        <location>Americas</location>
+        
+        <subOrder taxa="Tarsiiformes">
+            <location>SouthEast Asia</location>
+        </subOrder>
+        
+        <subOrder taxa="Anthropoidea">
+            
+            <infraOrder taxa="Platyrrhini">
+                <location>Americas</location>
+            </infraOrder>
+            
+            <infraOrder taxa="Catarrhini">
+                <location>Africa</location>
+                <location>Asia</location>
+            </infraOrder>
+        </subOrder>
+    </semiOrder>
+</order>
