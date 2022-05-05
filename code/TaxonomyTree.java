@@ -22,6 +22,7 @@ public class TaxonomyTree {
 		INFRAORDER,
 		SUPERFAMILY,
 		FAMILY,
+		SUBFAMILY,
 		GENUS,
 		SPECIES;
 	}
@@ -110,7 +111,7 @@ public class TaxonomyTree {
 			tList.add(root);
 			return tList;
 		}
-		
+		// Are we at the right level?
 		boolean targetHierarchy = false;
 		while (!taxStack.isEmpty()) {
 			Taxon taxAt = taxStack.pop();

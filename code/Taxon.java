@@ -43,7 +43,9 @@ public class Taxon {
 	}
 	
 	/**
-	 * 
+	 * Public static factory method for the Taxon class, constructs a Taxon based on
+	 * an XML Document node and additionally, creates a network of interconnected Taxons
+	 * that branch together based on the rootNode's child Nodes
 	 * @param rootNode
 	 * @return
 	 */
@@ -52,7 +54,8 @@ public class Taxon {
 	}
 	 
 	/**
-	 * 
+	 * Sets the branches of the Taxon based on the childNodes of the original DOM node, 
+	 * returns a linked list of instantiated Taxons.
 	 * @param taxaNode
 	 * @return
 	 */
@@ -76,40 +79,16 @@ public class Taxon {
 		return branchList;
 	}
 	
-	/*
-	private Node setPrecursor(Node taxaNode) {
-		if (isNodeNull(taxaNode.getParentNode())) {
-			return null;
-		} else {
-			return taxaNode.getParentNode();
-		}
-	}
-	*/
-	
+	/**
+	 * Is the current DOM Node considered null?
+	 * @param someNode
+	 * @return
+	 */
 	private boolean isNodeNull(Node someNode) {
 		if (someNode.toString().equals("[#document: null]")) {
 			return true;
 		}
 		return false;
-	}
-	
-	public void testTaxon() {
-		System.out.println("Linnean Hierarchy " + hierarchy);
-		System.out.println("Clade " + clade);
-		
-		System.out.println(hasPrecursor());
-		System.out.println("PRECURSOR " + precursor);
-		System.out.println(hasBranches());
-		System.out.println("Child nodes: ");
-		Iterator<Taxon> it = branches.iterator();
-		while (it.hasNext()) {
-			Taxon descendant = it.next();
-			System.out.println("HIER: " + descendant.hierarchy);
-			System.out.println("CLADE: " + descendant.clade);
-			System.out.println();
-			descendant.testTaxon();
-			System.out.println("\n______________________________________________________\n");
-		}
 	}
 	
 	/**
@@ -151,7 +130,7 @@ public class Taxon {
 	 * 
 	 * The final token is an icon representation of the Taxon, <br>
 	 * where the left bracket represents whether the Taxon has a <br>
-	 * precursor or not ("{" if yes, "[" if no), and the number <br>
+	 * precursor or not ("{" if yes, "|" if no), and the number <br>
 	 * of dashes afterwards represents the number of branches <br>
 	 * this taxon leads to. <br> <br>
 	 * 
@@ -163,7 +142,7 @@ public class Taxon {
 	 */
 	public String toString() {
 		final char hasPrec = '{';
-		final char noPrec = '[';
+		final char noPrec = '|';
 		final char branchChar = '-';
 		
 		StringBuilder taxaRep = new StringBuilder();
@@ -172,6 +151,27 @@ public class Taxon {
 			taxaRep.append(branchChar);
 		}
 		return this.hierarchy + " " + this.clade + " " + taxaRep.toString();
+	}
+	
+	/**
+	 * Print the full classification of this Taxon, which is expressed as a String containing
+	 * all the clades of higher level hierarchy above this one in descending order.
+	 * @return
+	 */
+	public String fullClassification() {
+		return fullClassHelper(this);
+	}
+	
+	/**
+	 * Helper for the fullClassification method.
+	 * @param t
+	 * @return
+	 */
+	private static String fullClassHelper(Taxon t) {
+		if (t.precursor == null) {
+			return t.hierarchy + " " + t.clade;
+		}
+		return fullClassHelper(t.precursor) + " " + t.hierarchy + " " + t.clade;
 	}
 	
 	/**
